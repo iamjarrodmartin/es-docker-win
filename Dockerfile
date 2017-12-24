@@ -9,8 +9,8 @@ COPY sources /
 RUN for /d %i in (jdk*) do setx /m JAVA_HOME %~fi
 
 # Download and extract Elasticsearch
-SHELL ["powershell.exe", "-Command"]
 
+SHELL ["powershell.exe", "-Command"]
 ADD ["https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${ELASTICSEARCH_VERSION}.zip", "/"]
 RUN Expand-Archive -Path \elasticsearch-$($Env:ELASTICSEARCH_VERSION).zip -DestinationPath \ ; \
     Remove-Item -Path \elasticsearch-$($Env:ELASTICSEARCH_VERSION).zip ;
@@ -21,8 +21,6 @@ ENV ELASTIC_HOME C:\\elasticsearch-${ELASTICSEARCH_VERSION}
 RUN "setx -m ES_JAVA_OPTS '-Xms1g -Xmx1g'"
 
 COPY elasticsearch.yml ${ELASTIC_HOME}/config/
-
-COPY readonlyrest.yml ${ELASTIC_HOME}/config/
 
 # Create a data volume and map it to the G: drive, allowing Java to call Path.toRealPath() successfully
 VOLUME c:/data
