@@ -24,9 +24,6 @@ COPY elasticsearch.yml ${ELASTIC_HOME}/config/
 
 COPY readonlyrest.yml ${ELASTIC_HOME}/config/
 
-#Install readonlyrest plugin
-RUN "C:\elasticsearch-6.0.1\bin\elasticsearch-plugin.bat install file:///C:\readonlyrest-1.16.14_es6.0.1.zip"
-
 # Create a data volume and map it to the G: drive, allowing Java to call Path.toRealPath() successfully
 VOLUME c:/data
 RUN Set-Variable -Name 'regpath' -Value 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' ; \
